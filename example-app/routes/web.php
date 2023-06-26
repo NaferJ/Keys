@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\RegisterUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('products', ProductController::class);
+
+Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+
+Route::get('/register-user', [RegisterUserController::class, 'showRegistrationForm'])->name('register.user');
+Route::post('/register-user', [RegisterUserController::class, 'register'])->name('register.user');
