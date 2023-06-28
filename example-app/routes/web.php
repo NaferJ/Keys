@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\RegisterUserController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,5 +28,7 @@ Route::resource('products', ProductController::class);
 
 Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 
-Route::get('/register-user', [RegisterUserController::class, 'showRegistrationForm'])->name('register.user');
-Route::post('/register-user', [RegisterUserController::class, 'register'])->name('register.user');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/register-user', [RegisterUserController::class, 'showRegistrationForm'])->name('register.user');
+    Route::post('/register-user', [RegisterUserController::class, 'register'])->name('register.user');
+});
