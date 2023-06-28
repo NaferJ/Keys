@@ -30,7 +30,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -76,5 +78,15 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const navbarBrand = document.querySelector(".navbar-brand");
+            navbarBrand.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.location.href = document.referrer;
+            });
+        });
+    </script>
 </body>
 </html>

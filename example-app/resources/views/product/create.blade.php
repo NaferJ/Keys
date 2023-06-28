@@ -16,10 +16,18 @@
                         <span class="card-title">{{ __('Create') }} Product</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('products.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('products.store') }}" role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('product.form')
+                            <div class="form-group">
+                                {{ Form::label('descripcion') }}
+                                {{ Form::text('descripcion', old('descripcion'), ['class' => 'form-control' . ($errors->has('descripcion') ? ' is-invalid' : ''), 'placeholder' => 'Descripcion']) }}
+                                {!! $errors->first('descripcion', '<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+
+                            <div class="box-footer mt20">
+                                <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+                            </div>
 
                         </form>
                     </div>

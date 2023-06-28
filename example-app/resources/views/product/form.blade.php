@@ -6,6 +6,21 @@
             {!! $errors->first('descripcion', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
+            {{ Form::label('docente') }}
+            {{ Form::text('docente', $product->docente, ['class' => 'form-control' . ($errors->has('docente') ? ' is-invalid' : ''), 'placeholder' => 'Docente']) }}
+            {!! $errors->first('docente', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        <div class="form-group">
+            {{ Form::label('hora_inicio') }}
+            {{ Form::time('hora_inicio', $product->hora_inicio, ['class' => 'form-control' . ($errors->has('hora_inicio') ? ' is-invalid' : '')]) }}
+            {!! $errors->first('hora_inicio', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        <div class="form-group">
+            {{ Form::label('hora_final') }}
+            {{ Form::time('hora_final', $product->hora_final, ['class' => 'form-control' . ($errors->has('hora_final') ? ' is-invalid' : '')]) }}
+            {!! $errors->first('hora_final', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        <div class="form-group">
             {{ Form::label('estado') }}
             <button type="button" class="btn btn-toggle{{ $product->estado == 'Ocupada' ? ' btn-danger active' : ' btn-primary' }}" onclick="toggleEstado(this)">
                 {{ $product->estado }}
@@ -18,10 +33,6 @@
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>
-
-<!-- En el código actualizado, hemos agregado un evento load que se ejecuta cuando la página se carga por completo. Dentro de este evento, comparamos el valor del campo oculto (estadoInput) con la cadena 'Ocupada' para determinar si el estado es "Ocupada" o "Disponible". Luego, ajustamos las clases y el texto del botón en consecuencia.
-De esta manera, cuando el formulario se cargue nuevamente, el estado y el color del botón se reflejarán correctamente según el valor almacenado en la base de datos.
-Espero que esta solución resuelva el problema. Si tienes alguna otra pregunta, no dudes en hacerla. -->
 
 <script>
     function toggleEstado(button) {
@@ -49,4 +60,3 @@ Espero que esta solución resuelva el problema. Si tienes alguna otra pregunta, 
         }
     });
 </script>
-
