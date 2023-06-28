@@ -22,6 +22,7 @@
             color: #333333;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -37,6 +38,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             background-color: #ffffff;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card-header {
@@ -134,6 +136,20 @@
             display: flex;
             justify-content: center;
         }
+
+        .login-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3490dc;
+            color: #ffffff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #2979bd;
+        }
     </style>
 </head>
 <body>
@@ -143,8 +159,12 @@
             <div class="card-body">
                 <!-- Pills navs -->
                 <div class="login-container">
-                            <a class="btn btn-primary" id="tab-login" data-mdb-toggle="pill" href="{{ route('login') }}" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
+                    <div class="d-flex">
+                        <a class="login-button" id="tab-login" data-mdb-toggle="pill" href="{{ route('login') }}" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
+                        <a class="login-button" id="tab-login" data-mdb-toggle="pill" href="{{ route('register') }}" role="tab" aria-controls="pills-login" aria-selected="true">Register</a>
+                    </div>
                 </div>
+
                 <button onclick="toggleDarkMode()" id="darkModeButton">Toggle Dark Mode</button>
             </div>
             <div class="text-center text-sm text-gray-500 version-info">
@@ -154,10 +174,27 @@
     </div>
 
     <script>
+        // Función para activar o desactivar el modo oscuro
         function toggleDarkMode() {
             const body = document.querySelector('body');
             body.classList.toggle('dark');
+            const isDarkMode = body.classList.contains('dark');
+            localStorage.setItem('darkMode', isDarkMode);
         }
+
+        // Restaurar el modo oscuro al cargar la página
+        function restoreDarkMode() {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            const body = document.querySelector('body');
+            if (isDarkMode) {
+                body.classList.add('dark');
+            } else {
+                body.classList.remove('dark');
+            }
+        }
+
+        // Llamar a la función de restaurar el modo oscuro al cargar la página
+        restoreDarkMode();
     </script>
 </body>
 </html>

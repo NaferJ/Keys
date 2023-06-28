@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -145,8 +145,43 @@
             display: flex;
             justify-content: center;
         }
-
         
+        /* Estilos para el botón de modo oscuro en el navbar */
+        .navbar-dark .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #cccccc;
+        }
+        
+        /* Estilos para el botón de modo oscuro en el navbar */
+        .navbar-dark .navbar-nav .nav-link .dark-mode-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #3490dc;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .navbar-dark .navbar-nav .nav-link .dark-mode-button:hover {
+            background-color: #ffffff;
+            color: #3490dc;
+        }
+
+        .navbar-dark .navbar-nav .nav-link .dark-mode-button i {
+            margin-right: 5px;
+        }
+
+        .navbar-dark .navbar-nav .nav-link .dark-mode-button.dark {
+            background-color: #ffffff;
+            color: #3490dc;
+        }
+
+        .navbar-dark .navbar-nav .nav-link .dark-mode-button.dark i {
+            transform: rotate(180deg);
+        }
     </style>
 
     <!-- Scripts -->
@@ -154,7 +189,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -196,6 +231,15 @@
                             </li>
                         @endguest
                     </ul>
+                    
+                    <!-- Botón de modo oscuro -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link dark-mode-button" href="#" onclick="toggleDarkMode()">
+                                <i class="fas fa-moon"></i> Modo Oscuro
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -206,13 +250,47 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const navbarBrand = document.querySelector(".navbar-brand");
-            navbarBrand.addEventListener("click", function(e) {
-                e.preventDefault();
-                window.location.href = document.referrer;
-            });
-        });
+        function toggleDarkMode() {
+            const body = document.body;
+            const navbar = document.querySelector(".navbar");
+            const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+            const darkModeButton = document.querySelector(".dark-mode-button");
+
+            body.classList.toggle("dark");
+            navbar.classList.toggle("navbar-dark");
+            navbar.classList.toggle("navbar-light");
+            navLinks.forEach((link) => link.classList.toggle("dark"));
+            darkModeButton.classList.toggle("dark");
+
+            if (body.classList.contains("dark")) {
+                darkModeButton.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+                localStorage.setItem("darkMode", "true");
+            } else {
+                darkModeButton.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
+                localStorage.setItem("darkMode", "false");
+            }
+        }
+
+        // Verificar el estado del modo oscuro al cargar la página
+        function checkDarkMode() {
+            const darkMode = localStorage.getItem("darkMode");
+            const body = document.body;
+            const navbar = document.querySelector(".navbar");
+            const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+            const darkModeButton = document.querySelector(".dark-mode-button");
+
+            if (darkMode === "true") {
+                body.classList.add("dark");
+                navbar.classList.add("navbar-dark");
+                navbar.classList.remove("navbar-light");
+                navLinks.forEach((link) => link.classList.add("dark"));
+                darkModeButton.classList.add("dark");
+                darkModeButton.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+            }
+        }
+
+        // Ejecutar la función al cargar la página
+        checkDarkMode();
     </script>
 </body>
 </html>
