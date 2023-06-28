@@ -1,61 +1,163 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laravel</title>
 
-        <title>Laravel</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Styles -->
+    <style>
+        * {
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+        }
 
-        <!-- Styles -->
-        <style>
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            <div class="container">
-                <div class="row justify-content-center mt-4">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">{{ __('Dashboard') }}</div>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7fafc;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
 
-                            <div class="card-body">
-                                <!-- Pills navs -->
-                                    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="{{ route('login') }}" role="tab"
-                                        aria-controls="pills-login" aria-selected="true">Login</a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="{{ route('register') }}" role="tab"
-                                        aria-controls="pills-register" aria-selected="false">Register</a>
-                                    </li>
-                                    </ul>
-                                        
-                            </div>
-                            
-                                   
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
+        .card {
+            width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .card-header {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .nav-pills {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-pills .nav-link {
+            border-radius: 20px;
+            padding: 8px 20px;
+            color: #ffffff;
+            background-color: #3490dc;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #ffffff;
+            color: #3490dc;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-sm {
+            font-size: 14px;
+        }
+
+        .text-gray-500 {
+            color: #777777;
+        }
+
+        .dark .text-gray-500 {
+            color: #cccccc;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .version-info {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777777;
+        }
+
+        .dark {
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        .dark .card {
+            background-color: #444444;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .nav-pills .nav-link {
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .dark .nav-pills .nav-link.active {
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        #darkModeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #3490dc;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        #darkModeButton:hover {
+            background-color: #ffffff;
+            color: #3490dc;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">{{ __('Lobby') }}</div>
+            <div class="card-body">
+                <!-- Pills navs -->
+                <div class="login-container">
+                            <a class="btn btn-primary" id="tab-login" data-mdb-toggle="pill" href="{{ route('login') }}" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
                 </div>
+                <button onclick="toggleDarkMode()" id="darkModeButton">Toggle Dark Mode</button>
             </div>
-            
-                
-                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-                </div>
+            <div class="text-center text-sm text-gray-500 version-info">
+                Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-    </body>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.querySelector('body');
+            body.classList.toggle('dark');
+        }
+    </script>
+</body>
 </html>
